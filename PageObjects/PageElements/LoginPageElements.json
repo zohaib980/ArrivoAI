@@ -1,0 +1,9 @@
+{
+
+    "LoginPageLocators": {
+        "signin_button": "body > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > button:nth-child(4)",
+        "username_text": "#email",
+        "Password_text": "#password",
+        "login_button": "#signin"
+    }
+}

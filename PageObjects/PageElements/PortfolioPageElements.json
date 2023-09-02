@@ -1,0 +1,12 @@
+{
+
+    "PortfolioPageLocators": {
+        "menu_button": ".simplebar-content > .sidebar-nav > [href='/Portfolios']",
+        "add_portfolio": ".no-img",
+        "portfolio_name": ".col-xl-10 > .mb-3 > .form-control",
+        "ownership_per": ".percentInput > .mb-3 > .form-control",
+        "save_button": ".text-end > .btn-md",
+        "portfolio_username": ":nth-child(1) > .pointer > :nth-child(1) > .card-title > .custom-tooltip > .card-portfolioname"
+    }
+
+}

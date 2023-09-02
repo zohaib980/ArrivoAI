@@ -1,0 +1,25 @@
+{
+
+    "SignupPageLocators": {
+        "signup_tab": "body > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(1) > button:nth-child(1)",
+        "signup_button": "body > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(4)",
+        "page_title": ".title",
+        "first_name": ":nth-child(1) > .form-control",
+        "last_name": "form > :nth-child(2) > .form-control",
+        "email_id": ":nth-child(3) > .form-control",
+        "phone_number": ":nth-child(4) > .form-control",
+        "password": ".input_group > .form-control",
+        "check_box": "#formBasicCheckbox",
+        "submit_button": "button[type='submit']",
+        "next_button": ".w-100",
+        "card_number": ".input_group > .form-control",
+        "date_field": ":nth-child(1) > .mb-3 > .form-control",
+        "cvc_number": ":nth-child(2) > .mb-3 > .form-control",
+        "card_holder_name": ":nth-child(3) > .mb-3 > .form-control",
+        "zip_code": ":nth-child(4) > .mb-3 > .form-control",
+        "start_trial_button": ".btn-md"
+
+
+        
+    }
+}
