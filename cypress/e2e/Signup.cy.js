@@ -1,83 +1,49 @@
 /// <reference types ="Cypress" />
 
-import { signupPageElements } from "../../PageObjects/PageActions/SignupPageActions";
+import { SignupPage } from "../../PageObjects/PageActions/SignupPage";
 
 
-const Signup_Elements = new signupPageElements
+const signupPage = new SignupPage
 
-describe('User want to register new Account', () => {
+describe('User want to register a new Account', () => {
 
-    it('Validate user is able to Signup using Email', () => {
-   /*   Cypress.on('uncaught:exception', (err, runnable) => {
-        // returning false here prevents Cypress from
-        // failing the test
-        return false
-      }) */
+    it('Validate Free user Signup using valid Email', () => {
+   
       cy.visit('/',  { timeout: 1000000 }, {failOnStatusCode: false})
-      Signup_Elements.signup()
-      Signup_Elements.sbutton()
-      Signup_Elements.title()
-    // This Function will Generate the UserName Last Name
-      function generateFirstName() {
-        let text = "";
-        let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        
-        for (let i = 0; i < 10; i++)
-        text += alphabet.charAt(Math.floor(Math.random() * alphabet.length))
-        return text;  
-      }
-        const generatedFirstName = generateFirstName()
-        Signup_Elements.fname(generatedFirstName)
+      signupPage.signupTab().click()
+      signupPage.signupWithEmail('+15166184624', 'Qwerty12#'); //here the first, last names and emails are generated randomly
 
-      // This Function will Generate the UserName Last Name
-      function generateLastName() {
-        let text = "";
-        let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        
-        for (let i = 0; i < 10; i++)
-        text += alphabet.charAt(Math.floor(Math.random() * alphabet.length))
-        return text;  
-      }
-        const generatedLastName = generateLastName()
-        Signup_Elements.lname(generatedLastName)
+      // User will move to Select Free Plan
+      signupPage.selectFreePlan()
+      cy.url().should('include', '/Dashboard')
     
-    // Enter new Email Address
-    function generateNewUser() {
-        let text = "";
-        let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        
-        for (let i = 0; i < 10; i++)
-        text += alphabet.charAt(Math.floor(Math.random() * alphabet.length))
-        return text;  
-      }
-        const generatedNewUserName = generateNewUser()
-        Signup_Elements.email(generatedNewUserName)
-    // Enter Phone number It will accept everytime the same Number
-     Signup_Elements.phone()
-     Signup_Elements.password()
-     Signup_Elements.checkbox()
-     Signup_Elements.signupbutton()
-     cy.wait(8000)
-    // User will move to Select Plan page
-     cy.get('.mb-4').should('have.text', 'Select your plan')
-     Signup_Elements.next()
-     cy.wait(10000)
-    // Now user will move to Units Page
-     cy.get('.title').should('have.text', 'How many units do you own?')
-     cy.get(':nth-child(1) > .card-body').click( {force: true} )
-     Signup_Elements.next()
-    // Now user will move to Add Payment Method page
-     cy.get('.mb-4').should('have.text', 'Add Payment Method')
-     Signup_Elements.cardnumber()
-     Signup_Elements.date()
-     Signup_Elements.cvc()
-     Signup_Elements.holderName()
-     Signup_Elements.zipCode()
-     Signup_Elements.startFreeTrailButton()
-     cy.wait(12000)
-     //cy.get('.btn-close').click( {force: true} )
-     cy.get('.page-header > h2').should('have.text', 'Dashboard')
-     cy.url().should('include', '/Dashboard')
-    
+    })
+
+    it('Validate Essential user Signup using a valid Email', () => {
+   
+      cy.visit('/',  { timeout: 1000000 }, {failOnStatusCode: false})
+      signupPage.signupTab().click()
+      signupPage.signupWithEmail('+15166184624', 'Qwerty12#'); //here the first, last names and emails are generated randomly
+
+      // User will move to Essential Plan
+      signupPage.selectEssentialPlan('Annual') //select "Monthly" or "Annual"
+
+      // Now user will move to Add Payment Method page
+      signupPage.addPaymentMethod('4242424242424242', '0826', '458', 'John Doe', '54000')
+      cy.url().should('include', '/Dashboard') 
+    })
+
+    it('Validate Growth user Signup using a valid Email', () => {
+   
+      cy.visit('/',  { timeout: 1000000 }, {failOnStatusCode: false})
+      signupPage.signupTab().click()
+      signupPage.signupWithEmail('+15166184624', 'Qwerty12#'); //here the first, last names and emails are generated randomly
+
+      // User will move to Growth Plan
+      signupPage.selectGrowthPlan('Annual') //select "Monthly" or "Annual"
+
+      // Now user will move to Add Payment Method page
+      signupPage.addPaymentMethod('4242424242424242', '0826', '458', 'John Doe', '54000')
+      cy.url().should('include', '/Dashboard')
     })
 })

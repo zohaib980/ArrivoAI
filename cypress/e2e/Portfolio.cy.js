@@ -1,26 +1,26 @@
 /// <reference types ="Cypress" />
 
-import { portfolioPageElements } from "../../PageObjects/PageActions/AddPortfolio"
-import { loginPageElements } from "../../PageObjects/PageActions/LoginPageActions"
+import { AddPortfolio } from "../../PageObjects/PageActions/AddPortfolio"
+import { LoginPage } from "../../PageObjects/PageActions/LoginPage"
 
-const Login_Elements = new loginPageElements
-const Portfolio_Elements = new portfolioPageElements
+const loginPage = new LoginPage
+const addPortfolio = new AddPortfolio
 
-describe('Sign In usign 3 type of Users', () => {
+describe('Add Porfolios', () => {
 
   it('Validate User Essential user is able to add new portfolio with Single Owner with 100% Ownership ', () => {
     cy.visit('/',  { timeout: 1000000 }, {failOnStatusCode: false})
-    Login_Elements.signin()
-    Login_Elements.username('rafia+24/7.landlord@vimware.com')
-    Login_Elements.Password('Qwerty12#')
-    Login_Elements.LoginButton()
+    loginPage.signinWithEmail().click()
+    loginPage.enterEmail('rafia+24/7.landlord@vimware.com')
+    loginPage.enterPassword('Qwerty12#')
+    loginPage.signInButton().click()
     cy.get('.page-header > h2').should('have.text', 'Dashboard')
-    Portfolio_Elements.portfolioButton()
+    addPortfolio.clickPortfolioMenu()
     cy.url().should('include', '/Portfolios')
     cy.get('h2').should('have.text', 'Portfolios')
-    Portfolio_Elements.addPortfolio()
+    addPortfolio.addPortfolioButton().click()
     cy.wait(3000)
-    cy.get('.mb-5').should('have.text', 'General info')
+    addPortfolio.validateGeneralInfo()
     // This function will create a unique name for Portfolio
       function generatePortfolioName() {
         let text = "";
@@ -31,11 +31,14 @@ describe('Sign In usign 3 type of Users', () => {
         return text;  
       }
     const generatedPortfolioName = generatePortfolioName()
-    Portfolio_Elements.portfolioName(generatedPortfolioName)
-    Portfolio_Elements.ownership()
-    cy.get('.blank').should('have.text', '100%')
-    Portfolio_Elements.save()
+    addPortfolio.addPortfolioName(generatedPortfolioName)
+    addPortfolio.ownerFirstName().type('{downarrow}{enter}');
+    addPortfolio.ownerLastName().clear().type('new arrivo')
+    addPortfolio.ownerEmail().clear().type('rafia+24/7.landlord@vimware.com')
+    addPortfolio.addOwnership(100)
+    addPortfolio.validateOwnershipPreview();
+    addPortfolio.save().click()
     cy.url().should('include', '/Portfolios')
-    Portfolio_Elements.validatePortfolio(generatedPortfolioName)
+    addPortfolio.validatePortfolio(generatedPortfolioName)
   })
 })    
